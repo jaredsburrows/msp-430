@@ -51,17 +51,18 @@ int main()
 
   // make sure the LEDS are off
   P1OUT &= ~(BIT0 + BIT6);               
-
+  
   for (;;) 
   {
-    for (i = 0; i < 20000; i++)
+    for (i = 0; i < 2000; i++)
     {
       P1OUT ^= BIT0;
+      P1OUT ^= BIT6;
     }
 
     for (i = 0; i < 20000; i++)
     {
-      P1OUT ^= BIT6;
+      P1OUT &= ~(BIT0 + BIT6);
     }
   }
 }
