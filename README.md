@@ -1,5 +1,4 @@
-# MSP430 Examples [![Build Status](https://travis-ci.org/jaredsburrows/MSP430.png)](https://travis-ci.org/jaredsburrows/MSP430)
-
+# MSP430 Examples
 
 Here are some examples of how to use the MSP430
 
