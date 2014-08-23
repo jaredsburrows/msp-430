@@ -40,8 +40,7 @@
 
 int blink = 0;
 
-int main()
-{
+int main() {
   // Setup Watchdog - Stop Watchdog - password + hold counter
   WDTCTL = WDTPW + WDTHOLD;
 
@@ -63,17 +62,13 @@ int main()
 
 // Port 1 interrupt service routine
 #pragma vector=PORT1_VECTOR
-__interrupt void Port_1(void)
-{
-  if (blink == 0)
-  {
+__interrupt void Port_1(void) {
+  if (blink == 0) {
     blink = 1;
     P1OUT ^= (BIT0 + BIT6);
-  }
-  else
-  {
+  } else {
     blink = 0;  
   }
   P1IFG &= ~BIT3; // P1.3 IFG cleared
-  P1IES ^= BIT3; // toggle the interrupt edge,
+  P1IES ^= BIT3;  // toggle the interrupt edge,
 }
