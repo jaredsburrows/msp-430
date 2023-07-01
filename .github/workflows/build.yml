@@ -1,0 +1,36 @@
+name: build
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [ opened, labeled, unlabeled, synchronize ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v3.5.3
+
+      - name: Install MSP GCC
+        run: sudo apt-get install gcc-msp430 mspdebug
+
+      - name: Build Buttons
+        run: cd Buttons && msp430-gcc -Wall -Wextra -Werror -Os -O2 -mmcu=msp430g2231 -o msp.elf msp.c
+
+      - name: Build LEDs
+        run: cd LEDs && msp430-gcc -Wall -Wextra -Werror -Os -O2 -mmcu=msp430g2231 -o msp.elf msp.c
+        
+      - name: Build LEDs2
+        run: cd LEDs2 && msp430-gcc -Wall -Wextra -Werror -Os -O2 -mmcu=msp430g2231 -o msp.elf msp.c

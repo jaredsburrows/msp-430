@@ -44,17 +44,16 @@ int main() {
   // Setup Watchdog - Stop Watchdog - password + hold counter
   WDTCTL = WDTPW + WDTHOLD;
 
-  // Set RED LED on
-  P1DIR |= BIT0 + BIT6;
-  0x01 + 0x06
-
-  // Set GREEN LED off
+  // Set RED LED on and GREEN LED off
+  P1DIR |= BIT0;
+  P1OUT |= BIT0;
+  P1DIR |= BIT6;
   P1OUT &= ~BIT6;
 
   // Setup up the Button
   P1IE |= BIT3;
   P1IFG &= ~BIT3;
-
+  
   __enable_interrupt();
 
   return 0;
@@ -65,10 +64,12 @@ int main() {
 __interrupt void Port_1(void) {
   if (blink == 0) {
     blink = 1;
-    P1OUT ^= (BIT0 + BIT6);
+    P1OUT |= (BIT0 + BIT6); // Turn on both LEDs
   } else {
-    blink = 0;  
+    blink = 0;
+    P1OUT &= ~(BIT0 + BIT6); // Turn off both LEDs
   }
   P1IFG &= ~BIT3; // P1.3 IFG cleared
   P1IES ^= BIT3;  // toggle the interrupt edge,
 }
+
