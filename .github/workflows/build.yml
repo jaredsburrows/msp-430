@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v4.1.1
 
       - name: Install MSP GCC
         run: sudo apt-get install gcc-msp430 mspdebug
