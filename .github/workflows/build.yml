@@ -7,17 +7,10 @@ on:
   pull_request:
     types: [ opened, labeled, unlabeled, synchronize ]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
 
     steps:
       - name: Checkout Project
